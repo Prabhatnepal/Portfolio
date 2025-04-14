@@ -102,6 +102,7 @@ canvas {
   justify-content: center;
   gap: 1rem;
   margin-top: 1rem;
+  flex-wrap: wrap;
 }
 
 .socials a img {
@@ -130,6 +131,7 @@ canvas {
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 .links a {
@@ -156,3 +158,83 @@ canvas {
   color: #ff6347;
 }
 
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .intro h1 {
+    font-size: 2.2rem;
+  }
+
+  .intro p {
+    font-size: 1rem;
+  }
+
+  .profile h2 {
+    font-size: 1.5rem;
+  }
+
+  .profile p {
+    font-size: 1rem;
+  }
+
+  .profile-img {
+    width: 100px;
+    height: 100px;
+  }
+
+  .overlay {
+    padding: 3rem 1rem;
+  }
+
+  .card {
+    padding: 1.5rem;
+  }
+
+  .card h3 {
+    font-size: 1.25rem;
+  }
+
+  .card p {
+    font-size: 0.95rem;
+  }
+
+  .links a {
+    font-size: 0.9rem;
+    padding: 0.4rem 0.8rem;
+  }
+
+  .socials a img {
+    width: 36px;
+    height: 36px;
+  }
+}
+
+@media (max-width: 480px) {
+  .intro h1 {
+    font-size: 1.8rem;
+  }
+
+  .intro p {
+    font-size: 0.95rem;
+  }
+
+  .profile h2 {
+    font-size: 1.3rem;
+  }
+
+  .profile p {
+    font-size: 0.95rem;
+  }
+
+  .profile-img {
+    width: 90px;
+    height: 90px;
+  }
+
+  .card {
+    padding: 1rem;
+  }
+
+  .links a {
+    font-size: 0.85rem;
+  }
+}
