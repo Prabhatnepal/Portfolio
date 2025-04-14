@@ -82,6 +82,7 @@ function animate() {
 const g = Math.sin(time * 0.4 + 2) * 0.5 + 0.5;
 const b = Math.sin(time * 0.5 + 4) * 0.5 + 0.5;
 
+
   torus.material.color.setRGB(r, g, b);
 
   controls.update();
