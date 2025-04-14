@@ -1,5 +1,158 @@
-canvas{
-    position: fixed;
-    top: 0;
-    left: 0;
+body, html {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  font-family: 'Poppins', sans-serif;
+  background: #000;
+  color: #fff;
 }
+
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 0;
+}
+
+.overlay {
+  position: relative;
+  z-index: 1;
+  padding: 5rem 2rem;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.intro {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.intro h1 {
+  font-size: 3rem;
+  animation: fadeInUp 1s ease forwards;
+}
+
+.intro p {
+  font-size: 1.25rem;
+  color: #ccc;
+  animation: fadeInUp 1.2s ease forwards;
+}
+
+.projects {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+/* Simple fade animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.profile {
+  text-align: center;
+  margin-bottom: 4rem;
+  animation: fadeInUp 1s ease forwards;
+}
+
+.profile-img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #fff;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+  margin-bottom: 1rem;
+}
+
+.profile h2 {
+  font-size: 2rem;
+  margin: 0.5rem 0;
+}
+
+.profile p {
+  font-size: 1.1rem;
+  color: #ccc;
+  max-width: 600px;
+  margin: auto;
+}
+
+.socials {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.socials a img {
+  width: 40px;
+  height: 40px;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.socials a:hover img {
+  transform: scale(1.1);
+  filter: brightness(1.2);
+}
+
+.card h3 {
+  margin-top: 0;
+  font-size: 1.5rem;
+}
+
+.card p {
+  font-size: 1rem;
+  color: #ccc;
+  margin: 0.5rem 0 1rem;
+}
+
+.links {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+}
+
+.links a img {
+  width: 20px;
+  height: 20px;
+  filter: brightness(1000%);
+}
+
+.links a:hover {
+  border-color: #ff6347;
+  color: #ff6347;
+}
+
