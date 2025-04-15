@@ -1,26 +1,24 @@
 import './style.css';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import gsap from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
 
-// Create scene
+gsap.registerPlugin(ScrollTrigger);
+
+// THREE.js Setup
 const scene = new THREE.Scene();
 
-// Camera
 const camera = new THREE.PerspectiveCamera(
-  75,
-  window.innerWidth / window.innerHeight,
-  0.1,
-  1000
+  75, window.innerWidth / window.innerHeight, 0.1, 1000
 );
 camera.position.z = 30;
 
-// Renderer
 const renderer = new THREE.WebGLRenderer({
   canvas: document.querySelector('#canvas'),
 });
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setPixelRatio(window.devicePixelRatio);
-renderer.render(scene, camera);
 
 // Torus
 const geometry = new THREE.TorusGeometry(10, 3, 16, 100);
@@ -42,79 +40,90 @@ function addStars() {
 }
 addStars();
 
-// Image texture
+
+// Texture cube
 const prabhatTexture = new THREE.TextureLoader().load('img/Prabhat.jpg');
 const prabhat = new THREE.Mesh(
   new THREE.BoxGeometry(2, 2, 2),
   new THREE.MeshBasicMaterial({ map: prabhatTexture })
 );
-prabhat.position.set(10, 5, 5);
+prabhat.position.set(15, 5, 5);
 scene.add(prabhat);
 
-// Orbit Controls
-const controls = new OrbitControls(camera, renderer.domElement);
+const prabhat1Texture = new THREE.TextureLoader().load('img/Prabhat.jpg');
+const prabhat1 = new THREE.Mesh(
+  new THREE.BoxGeometry(2, 2, 2),
+  new THREE.MeshBasicMaterial({ map: prabhatTexture })
+);
+prabhat1.position.set(-15, 5, 5);
+scene.add(prabhat1);
 
-// Animate
-const clock = new THREE.Clock();
+
+// Orbit Controls (optional if scroll only)
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableZoom = false;
+controls.enableRotate = false;
+
+// Scroll-based animation
+window.addEventListener('scroll', () => {
+  const scrollY = window.scrollY;
+
+  // Camera movement
+  camera.position.z = 30 - scrollY * 0.05;
+  camera.position.y = scrollY * 0.01;
+  camera.lookAt(torus.position);
+
+  // Rotation effects based on scroll
+  torus.rotation.x = scrollY * 0.005;
+  torus.rotation.y = scrollY * 0.005;
+
+  prabhat.rotation.x = scrollY * 0.005;
+  prabhat.rotation.y = scrollY * 0.005;
+
+  prabhat1.rotation.x = scrollY * 0.005;
+  prabhat1.rotation.y = scrollY * 0.005;
+
+  // RGB torus color cycling
+  const time = scrollY * 0.01;
+  const r = Math.sin(time * 0.3) * 0.5 + 0.5;
+  const g = Math.sin(time * 0.4 + 2) * 0.5 + 0.5;
+  const b = Math.sin(time * 0.5 + 4) * 0.5 + 0.5;
+  torus.material.color.setRGB(r, g, b);
+
+  renderer.render(scene, camera);
+});
 
 function animate() {
   requestAnimationFrame(animate);
 
-  const time = Date.now() * 0.001;
-
-  // Animate torus rotation
-  torus.rotation.x += 0.01;
-  torus.rotation.y += 0.01;
-
-  // Animate prabhat cube
+  // Rotate the prabhat cube continuously
   prabhat.rotation.x += 0.01;
   prabhat.rotation.y += 0.01;
-  prabhat.rotation.z += 0.01;
 
-  // Animate camera in a subtle circle
-  const t = clock.getElapsedTime();
-  camera.position.z = 30 + Math.sin(t) * 5;
-  camera.position.y = Math.cos(t) * 2;
-  camera.lookAt(torus.position);
+  prabhat1.rotation.x += 0.01;
+  prabhat1.rotation.y += 0.01;
 
-  // 🌈 Animate torus color
-  const r = Math.sin(time * 0.3) * 0.5 + 0.5;
-const g = Math.sin(time * 0.4 + 2) * 0.5 + 0.5;
-const b = Math.sin(time * 0.5 + 4) * 0.5 + 0.5;
+  // Optional: You can still rotate the torus too
+  torus.rotation.x -= 0.005;
+  torus.rotation.y -= 0.005;
 
-
-  torus.material.color.setRGB(r, g, b);
-
-  controls.update();
   renderer.render(scene, camera);
 }
 animate();
 
 
-// Scroll event
-window.addEventListener('scroll', () => {
-  const t = window.scrollY;
-  camera.position.z = 30 - t * 0.05;
-  camera.position.y = t * 0.01;
-  torus.rotation.x += 0.005;
-  torus.rotation.y += 0.005;
-});
+// Initial render
+renderer.render(scene, camera);
 
-// Optional: handle window resize
+// Resize handler
 window.addEventListener('resize', () => {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.render(scene, camera);
 });
 
-
-
-import gsap from "gsap";
-import ScrollTrigger from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
-
-// Animate intro
+// GSAP animations
 gsap.from(".intro h1", {
   y: 50,
   opacity: 0,
@@ -130,7 +139,6 @@ gsap.from(".intro p", {
   ease: "power3.out"
 });
 
-// Animate cards on scroll
 gsap.from(".card", {
   scrollTrigger: {
     trigger: ".card",
@@ -143,3 +151,4 @@ gsap.from(".card", {
   stagger: 0.2,
   ease: "back.out(1.7)",
 });
+
