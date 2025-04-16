@@ -285,6 +285,11 @@ canvas {
   .intro p {
     font-size: 0.95rem;
   }
+
+  .overlay {
+    padding: 3rem 1rem;
+  }
+  
   .contact-container{
     padding: 1.5rem 1rem;padding: 1.5rem 1rem;
     margin: 0 1rem;
