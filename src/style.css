@@ -1,10 +1,15 @@
-body, html {
+/* Base styles */
+html, body {
   margin: 0;
   padding: 0;
+  height: 100%;
   overflow-x: hidden;
+  overflow-y: scroll;
   font-family: 'Poppins', sans-serif;
   background: #000;
   color: #fff;
+  scroll-behavior: smooth;
+  scroll-snap-type: y proximity;
 }
 
 canvas {
@@ -16,12 +21,22 @@ canvas {
   pointer-events: none;
 }
 
+section {
+  scroll-snap-align: start;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
 .overlay {
   position: relative;
   z-index: 10;
-  padding: 5rem 2rem;
+  padding: 2rem;
   max-width: 1200px;
   margin: auto;
+  flex-direction: column;
 }
 
 .intro {
@@ -44,6 +59,8 @@ canvas {
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 2rem;
   padding: 1rem;
+  width: 100%;
+  text-align: center;
 }
 
 .card {
@@ -72,6 +89,7 @@ canvas {
 
 .contact-container {
   max-width: 600px;
+  width: 100%;
   margin: 0 auto;
   padding: 2rem;
   background: rgba(255, 255, 255, 0.05);
@@ -79,8 +97,8 @@ canvas {
   border: 1px solid rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
   text-align: center;
+  overflow: hidden;
 }
-
 
 .contact-container form {
   display: flex;
@@ -116,6 +134,7 @@ canvas {
 .profile {
   text-align: center;
   margin-bottom: 4rem;
+  width: 100%;
 }
 
 .profile-img {
@@ -189,7 +208,7 @@ canvas {
   color: #ff6347;
 }
 
-/* Mobile styles */
+/* Responsive styles */
 @media (max-width: 768px) {
   .intro h1 {
     font-size: 2.2rem;
@@ -201,17 +220,8 @@ canvas {
 
   .contact-container {
     max-width: 90%;
-    width: 100%;
-    margin: 0 auto;
     padding: 1.5rem;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 1rem;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    text-align: center;
-    overflow: hidden;
   }
-
 
   .links a {
     font-size: 0.9rem;
@@ -257,6 +267,7 @@ canvas {
     font-size: 0.95rem;
   }
 }
+
 @media (max-width: 360px) {
   .intro h1 {
     font-size: 1.5rem;
@@ -271,18 +282,8 @@ canvas {
   }
 
   .contact-container {
-    max-width: 90%;
-    width: 100%;
-    margin: 0 auto;
     padding: 1.5rem;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 1rem;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    text-align: center;
-    overflow: hidden;
   }
-  
 
   .profile-img {
     width: 80px;
@@ -296,4 +297,4 @@ canvas {
   .profile p {
     font-size: 0.9rem;
   }
-} 
+}
