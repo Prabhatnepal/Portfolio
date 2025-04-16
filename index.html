@@ -6,17 +6,54 @@
     <link rel="stylesheet" href="/prabhat/src/style.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PrabhaT</title>
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        scroll-behavior: smooth;
+        scroll-snap-type: y mandatory;
+        overflow-y: scroll;
+      }
+
+      section {
+        scroll-snap-align: start;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .overlay {
+        flex-direction: column;
+        padding: 2rem;
+      }
+
+      /* Optional: prevent form/content cutoff on smaller screens */
+      .contact-container {
+        max-width: 600px;
+        width: 100%;
+      }
+
+      .projects, .contact-container, .profile {
+        width: 100%;
+        text-align: center;
+      }
+    </style>
   </head>
   <body>
     <canvas id="canvas"></canvas>
-  
+
+    <!-- 1. Intro Section -->
     <section class="overlay">
-      <div class="intro">
+      <div class="scroll-page intro">
         <h1>Hi, I'm Prabhat 👋</h1>
         <p>Creative Developer with a love for 3D web experiences.</p>
       </div>
-  
-      <div class="projects">
+    </section>
+
+    <!-- 2. Projects Section -->
+    <section class="overlay">
+      <div class="scroll-page projects">
 
         <div class="card">
           <h3>1. Login Form</h3>
@@ -64,10 +101,11 @@
         </div>
       
       </div>
-      
     </section>
-    <section class="overlay contact-section">
-      <div class="contact-container">
+
+    <!-- 3. Contact Section -->
+    <section class="overlay">
+      <div class="scroll-page contact-container">
         <h2>Contact Me</h2>
         <p>Have a question or want to work together? Feel free to reach out!</p>
         <form action="https://formspree.io/f/xkgodwoa" method="POST">
@@ -78,11 +116,10 @@
         </form>
       </div>
     </section>
-    
 
+    <!-- 4. Profile Section -->
     <section class="overlay">
-      <!-- ✅ Profile section -->
-      <div class="profile">
+      <div class="scroll-page profile">
         <img src="img/logo.png" alt="Profile" class="profile-img" />
         <h2>Prabhat Nepal</h2>
         <p>Creative Developer passionate about 3D web, JavaScript, and immersive experiences.</p>
@@ -100,11 +137,9 @@
             <img src="https://img.icons8.com/?size=64&id=bG29Ckcdp6YP&format=png" alt="X" />
           </a>
         </div>
-        
       </div>
-  
+    </section>
+
     <script type="module" src="src/main.js"></script>
   </body>
-  
 </html>
-

@@ -6,129 +6,134 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-// THREE.js Setup
+// === THREE.js Setup ===
 const scene = new THREE.Scene();
 
 const camera = new THREE.PerspectiveCamera(
-  75, window.innerWidth / window.innerHeight, 0.1, 1000
+  75,
+  window.innerWidth / window.innerHeight,
+  0.1,
+  1000
 );
-camera.position.z = 30;
+camera.position.set(0, 0, 30);
 
 const renderer = new THREE.WebGLRenderer({
   canvas: document.querySelector('#canvas'),
+  antialias: true,
 });
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setPixelRatio(window.devicePixelRatio);
 
-// Torus
-const geometry = new THREE.TorusGeometry(10, 3, 16, 100);
-const material = new THREE.MeshBasicMaterial({ color: 0xff6347, wireframe: true });
-const torus = new THREE.Mesh(geometry, material);
+// === Orbit Controls (optional for debugging) ===
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enabled = false;
+
+// === Torus ===
+const torus = new THREE.Mesh(
+  new THREE.TorusGeometry(10, 3, 16, 100),
+  new THREE.MeshBasicMaterial({ color: 0xff6347, wireframe: true })
+);
 scene.add(torus);
 
-// Stars
+// === Stars ===
 function addStars() {
   const starGeometry = new THREE.SphereGeometry(0.25, 24, 24);
   const starMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
 
   for (let i = 0; i < 200; i++) {
     const star = new THREE.Mesh(starGeometry, starMaterial);
-    const [x, y, z] = Array(3).fill().map(() => THREE.MathUtils.randFloatSpread(100));
+    const [x, y, z] = Array(3)
+      .fill()
+      .map(() => THREE.MathUtils.randFloatSpread(100));
     star.position.set(x, y, z);
     scene.add(star);
   }
 }
 addStars();
 
+// === Profile Cubes ===
+const texture = new THREE.TextureLoader().load('img/Prabhat.jpg');
 
-// Texture cube
-const prabhatTexture = new THREE.TextureLoader().load('img/Prabhat.jpg');
 const prabhat = new THREE.Mesh(
   new THREE.BoxGeometry(2, 2, 2),
-  new THREE.MeshBasicMaterial({ map: prabhatTexture })
+  new THREE.MeshBasicMaterial({ map: texture })
 );
 prabhat.position.set(15, 5, 5);
 scene.add(prabhat);
 
-const prabhat1Texture = new THREE.TextureLoader().load('img/Prabhat.jpg');
 const prabhat1 = new THREE.Mesh(
   new THREE.BoxGeometry(2, 2, 2),
-  new THREE.MeshBasicMaterial({ map: prabhatTexture })
+  new THREE.MeshBasicMaterial({ map: texture })
 );
 prabhat1.position.set(-15, 5, 5);
 scene.add(prabhat1);
 
-
-// Orbit Controls (optional if scroll only)
-const controls = new OrbitControls(camera, renderer.domElement);
-controls.enableZoom = false;
-controls.enableRotate = false;
-
-// Scroll-based animation
-window.addEventListener('scroll', () => {
-  const scrollY = window.scrollY;
-
-  // Camera movement
-  camera.position.z = 30 - scrollY * 0.05;
-  camera.position.y = scrollY * 0.01;
-  camera.lookAt(torus.position);
-
-  // Rotation effects based on scroll
-  torus.rotation.x = scrollY * 0.005;
-  torus.rotation.y = scrollY * 0.005;
-
-  prabhat.rotation.x = scrollY * 0.005;
-  prabhat.rotation.y = scrollY * 0.005;
-
-  prabhat1.rotation.x = scrollY * 0.005;
-  prabhat1.rotation.y = scrollY * 0.005;
-
-  // RGB torus color cycling
-  const time = scrollY * 0.01;
-  const r = Math.sin(time * 0.3) * 0.5 + 0.5;
-  const g = Math.sin(time * 0.4 + 2) * 0.5 + 0.5;
-  const b = Math.sin(time * 0.5 + 4) * 0.5 + 0.5;
-  torus.material.color.setRGB(r, g, b);
-
-  renderer.render(scene, camera);
-});
-
+// === Animation Loop ===
 function animate() {
   requestAnimationFrame(animate);
 
-  // Rotate the prabhat cube continuously
+  torus.rotation.x -= 0.005;
+  torus.rotation.y -= 0.005;
+  torus.rotation.z -= 0.005;
+
   prabhat.rotation.x += 0.01;
   prabhat.rotation.y += 0.01;
 
   prabhat1.rotation.x += 0.01;
   prabhat1.rotation.y += 0.01;
 
-  // Optional: You can still rotate the torus too
-  torus.rotation.x -= 0.005;
-  torus.rotation.y -= 0.005;
-
   renderer.render(scene, camera);
 }
 animate();
 
-
-// Initial render
-renderer.render(scene, camera);
-
-// Resize handler
+// === Resize Handling ===
 window.addEventListener('resize', () => {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth, window.innerHeight);
-  renderer.render(scene, camera);
 });
 
-// GSAP animations
+// === Section Scroll Camera Animation ===
+const sections = document.querySelectorAll(".scroll-page");
+
+sections.forEach((section, index) => {
+  const zoomZ = 30 - index * 8; // Adjust depth
+  const moveY = index * 6;      // Adjust height
+
+  ScrollTrigger.create({
+    trigger: section,
+    start: "top center",
+    onEnter: () => {
+      gsap.to(camera.position, {
+        z: zoomZ,
+        y: moveY,
+        duration: 1.5,
+        ease: "power2.inOut",
+        onUpdate: () => {
+          camera.lookAt(torus.position);
+        },
+      });
+    },
+    onEnterBack: () => {
+      gsap.to(camera.position, {
+        z: zoomZ,
+        y: moveY,
+        duration: 1.5,
+        ease: "power2.inOut",
+        onUpdate: () => {
+          camera.lookAt(torus.position);
+        },
+      });
+    }
+  });
+});
+
+// === GSAP Content Reveal ===
 gsap.from(".intro h1", {
   y: 50,
   opacity: 0,
   duration: 1,
-  ease: "power3.out"
+  ease: "power3.out",
 });
 
 gsap.from(".intro p", {
@@ -136,7 +141,7 @@ gsap.from(".intro p", {
   opacity: 0,
   delay: 0.3,
   duration: 1,
-  ease: "power3.out"
+  ease: "power3.out",
 });
 
 gsap.from(".card", {
@@ -151,4 +156,3 @@ gsap.from(".card", {
   stagger: 0.2,
   ease: "back.out(1.7)",
 });
-

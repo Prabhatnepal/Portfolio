@@ -8,6 +8,7 @@ body, html {
 }
 
 canvas {
+  max-width: 100vw;
   position: fixed;
   top: 0;
   left: 0;
@@ -279,7 +280,10 @@ canvas {
   .intro p {
     font-size: 0.95rem;
   }
-
+  .contact-container{
+    padding: 1.5rem 1rem;padding: 1.5rem 1rem;
+    margin: 0 1rem;
+  }
   .profile h2 {
     font-size: 1.3rem;
   }
