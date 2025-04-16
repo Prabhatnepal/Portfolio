@@ -1,111 +1,56 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/Prabhaticon.png" />
-    <link rel="stylesheet" href="/prabhat/src/style.css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PrabhaT</title>
-    <style>
-      html, body {
-        height: 100%;
-        margin: 0;
-        scroll-behavior: smooth;
-        scroll-snap-type: y mandatory;
-        overflow-y: scroll;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/Prabhaticon.png" />
+  <link rel="stylesheet" href="/prabhat/src/style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PrabhaT</title>
+  <style>
+    html, body {
+      scroll-behavior: smooth;
+      height: 100%;
+    }
 
-      section {
-        scroll-snap-align: start;
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
+    .scroll-container {
+      height: 100vh;
+      overflow-y: scroll;
+      scroll-snap-type: y mandatory;
+    }
 
-      .overlay {
-        flex-direction: column;
-        padding: 2rem;
-      }
+    .scroll-page {
+      scroll-snap-align: start;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+  <div class="scroll-container">
 
-      /* Optional: prevent form/content cutoff on smaller screens */
-      .contact-container {
-        max-width: 600px;
-        width: 100%;
-      }
-
-      .projects, .contact-container, .profile {
-        width: 100%;
-        text-align: center;
-      }
-    </style>
-  </head>
-  <body>
-    <canvas id="canvas"></canvas>
-
-    <!-- 1. Intro Section -->
-    <section class="overlay">
-      <div class="scroll-page intro">
+    <!-- Section 1: Intro -->
+    <section class="scroll-page overlay">
+      <div class="intro">
         <h1>Hi, I'm Prabhat 👋</h1>
         <p>Creative Developer with a love for 3D web experiences.</p>
       </div>
     </section>
 
-    <!-- 2. Projects Section -->
-    <section class="overlay">
-      <div class="scroll-page projects">
-
-        <div class="card">
-          <h3>1. Login Form</h3>
-          <p>this is a login form with stylish css.</p>
-          <div class="links">
-            <a href="https://github.com/Prabhatnepal/login-form.git" target="_blank">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub" />
-              Source Code
-            </a>
-            <a href="https://prabhatnepal.github.io/login-form/" target="_blank">
-              <img src="https://img.icons8.com/ios-glyphs/30/external-link.png" alt="Open" />
-              Live Demo
-            </a>
-          </div>
-        </div>
-      
-        <div class="card">
-          <h3>2. BCalculator</h3>
-          <p>A typically calculator may be used for business use.</p>
-          <div class="links">
-            <a href="https://github.com/Prabhatnepal/Bcalculator.git" target="_blank">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub" />
-              Source Code
-            </a>
-            <a href="https://prabhatnepal.github.io/Bcalculator/" target="_blank">
-              <img src="https://img.icons8.com/ios-glyphs/30/external-link.png" alt="Open" />
-              Live Demo
-            </a>
-          </div>
-        </div>
-      
-        <div class="card">
-          <h3>3. Old Portfolio</h3>
-          <p>Responsive portfolio template with cool UI effects. Old is Gold</p>
-          <div class="links">
-            <a href="https://github.com/Prabhatnepal/old_port.git" target="_blank">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub" />
-              Source Code
-            </a>
-            <a href="http://prabhatnepal.github.io/old_port/" target="_blank">
-              <img src="https://img.icons8.com/ios-glyphs/30/external-link.png" alt="Open" />
-              Live Demo
-            </a>
-          </div>
-        </div>
-      
+    <!-- Section 2: Projects -->
+    <section class="scroll-page overlay">
+      <div class="projects">
+        <!-- Keep your 3 cards here unchanged -->
+        <!-- ... Cards code ... -->
       </div>
     </section>
 
-    <!-- 3. Contact Section -->
-    <section class="overlay">
-      <div class="scroll-page contact-container">
+    <!-- Section 3: Contact -->
+    <section class="scroll-page overlay contact-section">
+      <div class="contact-container">
         <h2>Contact Me</h2>
         <p>Have a question or want to work together? Feel free to reach out!</p>
         <form action="https://formspree.io/f/xkgodwoa" method="POST">
@@ -117,29 +62,20 @@
       </div>
     </section>
 
-    <!-- 4. Profile Section -->
-    <section class="overlay">
-      <div class="scroll-page profile">
+    <!-- Section 4: Profile -->
+    <section class="scroll-page overlay">
+      <div class="profile">
         <img src="img/logo.png" alt="Profile" class="profile-img" />
         <h2>Prabhat Nepal</h2>
         <p>Creative Developer passionate about 3D web, JavaScript, and immersive experiences.</p>
         <div class="socials">
-          <a href="https://github.com/Prabhatnepal" target="_blank">
-            <img src="https://img.icons8.com/?size=64&id=u9R54eMKS8fw&format=png" alt="GitHub" />
-          </a>
-          <a href="https://www.facebook.com/prabhatnepal.69" target="_blank">
-            <img src="https://img.icons8.com/?size=80&id=118562&format=png" alt="Facebook" />
-          </a>
-          <a href="https://www.instagram.com/nepal_prabhat/" target="_blank">
-            <img src="https://img.icons8.com/?size=80&id=TSZw5VixabhS&format=png" alt="instagram" />
-          </a>
-          <a href="https://x.com/prabhat69x" target="_blank">
-            <img src="https://img.icons8.com/?size=64&id=bG29Ckcdp6YP&format=png" alt="X" />
-          </a>
+          <!-- Your social icons here -->
         </div>
       </div>
     </section>
+    
+  </div>
 
-    <script type="module" src="src/main.js"></script>
-  </body>
+  <script type="module" src="src/main.js"></script>
+</body>
 </html>
