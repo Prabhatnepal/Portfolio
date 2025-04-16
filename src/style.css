@@ -195,10 +195,6 @@ canvas {
     font-size: 2.2rem;
   }
 
-  .projects {
-    grid-template-columns: 1fr;
-  }
-
   .card {
     padding: 1.5rem;
   }
@@ -241,7 +237,6 @@ canvas {
   }
 
   .projects {
-    grid-template-columns: 1fr;
     gap: 1rem;
   }
 
@@ -268,7 +263,6 @@ canvas {
   }
 
   .projects {
-    grid-template-columns: 1fr;
     gap: 0.5rem;
   }
 
