@@ -1,15 +1,10 @@
-/* Base styles */
-html, body {
+body, html {
   margin: 0;
   padding: 0;
-  height: 100%;
   overflow-x: hidden;
-  overflow-y: scroll;
   font-family: 'Poppins', sans-serif;
   background: #000;
   color: #fff;
-  scroll-behavior: smooth;
-  scroll-snap-type: y mandatory;
 }
 
 canvas {
@@ -18,59 +13,36 @@ canvas {
   top: 0;
   left: 0;
   z-index: 0;
-  pointer-events: none;
-}
-
-.scroll-page {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-}
-
-section {
-  scroll-snap-align: start;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .overlay {
   position: relative;
-  z-index: 10;
-  padding: 2rem;
+  z-index: 1;
+  padding: 5rem 2rem;
   max-width: 1200px;
   margin: auto;
-  flex-direction: column;
-  display: flex;
-  overflow: auto; /* allows scrolling inside if needed */
 }
 
 .intro {
   text-align: center;
   margin-bottom: 4rem;
-  animation: fadeInUp 1s ease forwards;
 }
 
 .intro h1 {
   font-size: 3rem;
+  animation: fadeInUp 1s ease forwards;
 }
 
 .intro p {
   font-size: 1.25rem;
   color: #ccc;
+  animation: fadeInUp 1.2s ease forwards;
 }
 
 .projects {
-  position: relative;
-  z-index: 11;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 2rem;
-  padding: 1rem;
-  width: 100%;
-  text-align: center;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 }
 
 .card {
@@ -86,6 +58,7 @@ section {
   transform: scale(1.05);
 }
 
+/* Simple fade animation */
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -97,17 +70,29 @@ section {
   }
 }
 
+
+.contact-section {
+  text-align: center;
+}
+
 .contact-container {
   max-width: 600px;
-  width: 100%;
   margin: 0 auto;
   padding: 2rem;
   background: rgba(255, 255, 255, 0.05);
   border-radius: 1rem;
   border: 1px solid rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
-  text-align: center;
-  overflow: hidden;
+}
+
+.contact-container h2 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.contact-container p {
+  color: #ccc;
+  margin-bottom: 1.5rem;
 }
 
 .contact-container form {
@@ -126,6 +111,11 @@ section {
   font-size: 1rem;
 }
 
+.contact-container input::placeholder,
+.contact-container textarea::placeholder {
+  color: #bbb;
+}
+
 .contact-container button {
   padding: 0.75rem 1rem;
   background: #ff6347;
@@ -141,10 +131,12 @@ section {
   background: #ff3c20;
 }
 
+
+
 .profile {
   text-align: center;
   margin-bottom: 4rem;
-  width: 100%;
+  animation: fadeInUp 1s ease forwards;
 }
 
 .profile-img {
@@ -159,6 +151,7 @@ section {
 
 .profile h2 {
   font-size: 2rem;
+  margin: 0.5rem 0;
 }
 
 .profile p {
@@ -185,6 +178,17 @@ section {
 .socials a:hover img {
   transform: scale(1.1);
   filter: brightness(1.2);
+}
+
+.card h3 {
+  margin-top: 0;
+  font-size: 1.5rem;
+}
+
+.card p {
+  font-size: 1rem;
+  color: #ccc;
+  margin: 0.5rem 0 1rem;
 }
 
 .links {
@@ -218,38 +222,19 @@ section {
   color: #ff6347;
 }
 
-/* Responsive styles */
+/* Mobile responsiveness */
 @media (max-width: 768px) {
-  section.overlay {
-    height: auto;
-    min-height: 100vh;
-  }
-
   .intro h1 {
     font-size: 2.2rem;
   }
 
-  .projects {
-    grid-template-columns: 1fr;
-    gap: 1rem;
+  .intro p {
+    font-size: 1rem;
   }
 
-  .card {
-    padding: 1.5rem;
-  }
-
-  .contact-container {
-    max-width: 90%;
-    padding: 1.5rem;
-  }
-
-  .links a {
-    font-size: 0.9rem;
-  }
-
-  .profile-img {
-    width: 100px;
-    height: 100px;
+  .contact-container{
+    padding: 1.5rem 1rem;
+    margin: 0 1rem;
   }
 
   .profile h2 {
@@ -259,6 +244,37 @@ section {
   .profile p {
     font-size: 1rem;
   }
+
+  .profile-img {
+    width: 100px;
+    height: 100px;
+  }
+
+  .overlay {
+    padding: 3rem 1rem;
+  }
+
+  .card {
+    padding: 1.5rem;
+  }
+
+  .card h3 {
+    font-size: 1.25rem;
+  }
+
+  .card p {
+    font-size: 0.95rem;
+  }
+
+  .links a {
+    font-size: 0.9rem;
+    padding: 0.4rem 0.8rem;
+  }
+
+  .socials a img {
+    width: 36px;
+    height: 36px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -266,20 +282,18 @@ section {
     font-size: 1.8rem;
   }
 
-  .projects {
-    grid-template-columns: 1fr;
-    gap: 1rem;
+  .intro p {
+    font-size: 0.95rem;
   }
 
-  .card {
-    padding: 1rem;
+  .overlay {
+    padding: 3rem 1rem;
   }
-
-  .profile-img {
-    width: 90px;
-    height: 90px;
+  
+  .contact-container{
+    padding: 1.5rem 1rem;padding: 1.5rem 1rem;
+    margin: 0 1rem;
   }
-
   .profile h2 {
     font-size: 1.3rem;
   }
@@ -287,36 +301,17 @@ section {
   .profile p {
     font-size: 0.95rem;
   }
-}
 
-@media (max-width: 360px) {
-  .intro h1 {
-    font-size: 1.5rem;
-  }
-
-  .projects {
-    grid-template-columns: 1fr;
-    gap: 1rem;
+  .profile-img {
+    width: 90px;
+    height: 90px;
   }
 
   .card {
-    padding: 0.75rem;
+    padding: 1rem;
   }
 
-  .contact-container {
-    padding: 1.5rem;
-  }
-
-  .profile-img {
-    width: 80px;
-    height: 80px;
-  }
-
-  .profile h2 {
-    font-size: 1.2rem;
-  }
-
-  .profile p {
-    font-size: 0.9rem;
+  .links a {
+    font-size: 0.85rem;
   }
 }
