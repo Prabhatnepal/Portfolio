@@ -26,6 +26,17 @@ const material = new THREE.MeshBasicMaterial({ color: 0xff6347, wireframe: true 
 const torus = new THREE.Mesh(geometry, material);
 scene.add(torus);
 
+const geometry1 = new THREE.SphereGeometry( 100, 100, 100 );
+
+const wireframe = new THREE.WireframeGeometry( geometry1 );
+
+const line = new THREE.LineSegments( wireframe );
+line.material.depthTest = false;
+line.material.opacity = 0.25;
+line.material.transparent = true;
+
+scene.add( line );
+
 // Stars
 function addStars() {
   const starGeometry = new THREE.SphereGeometry(0.25, 24, 24);
