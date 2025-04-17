@@ -120,6 +120,10 @@ function animate() {
   torus.rotation.y -= 0.005;
   torus.rotation.z -= 0.005;
 
+  line.rotation.x -= 0.00005;
+  line.rotation.y -= 0.00005;
+  line.rotation.z -= 0.00005;
+
   renderer.render(scene, camera);
 }
 animate();
