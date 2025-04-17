@@ -10,7 +10,7 @@ gsap.registerPlugin(ScrollTrigger);
 const scene = new THREE.Scene();
 
 const camera = new THREE.PerspectiveCamera(
-  75, window.innerWidth / window.innerHeight, 0.1, 1000
+  100, window.innerWidth / window.innerHeight, 0.1, 1000
 );
 camera.position.z = 30;
 
@@ -29,7 +29,7 @@ scene.add(torus);
 // Stars
 function addStars() {
   const starGeometry = new THREE.SphereGeometry(0.25, 24, 24);
-  const starMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
+  const starMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 });
 
   for (let i = 0; i < 200; i++) {
     const star = new THREE.Mesh(starGeometry, starMaterial);
