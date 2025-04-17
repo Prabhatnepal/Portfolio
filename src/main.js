@@ -64,7 +64,7 @@ scene.add(prabhat);
 const prabhat1Texture = new THREE.TextureLoader().load('img/Prabhat.jpg');
 const prabhat1 = new THREE.Mesh(
   new THREE.BoxGeometry(2, 2, 2),
-  new THREE.MeshBasicMaterial({ map: prabhatTexture })
+  new THREE.MeshBasicMaterial({ map: prabhat1Texture })
 );
 prabhat1.position.set(-15, 5, 5);
 scene.add(prabhat1);
