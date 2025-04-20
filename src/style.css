@@ -38,6 +38,43 @@ canvas {
   animation: fadeInUp 1.2s ease forwards;
 }
 
+.galaxy-section {
+  position: relative;
+  min-height: 100vh;
+  padding: 100px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  z-index: 10;
+  text-align: center;
+  backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 20px;
+  margin: 50px auto;
+  max-width: 900px;
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+}
+
+.galaxy-section h2 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  background: linear-gradient(90deg, #00ffff, #ff00ff);
+ background-clip: text;
+-webkit-text-fill-color: transparent;
+
+  font-weight: 700;
+}
+
+.galaxy-section p {
+  font-size: 1.2rem;
+  max-width: 600px;
+  line-height: 1.6;
+  color: #e0e0e0;
+}
+
+
 .projects {
   display: grid;
   gap: 2rem;
@@ -248,6 +285,18 @@ canvas {
     padding: 3rem 1rem;
   }
 
+  .galaxy-section {
+    padding: 3rem 1rem;
+  }
+
+  .galaxy-section h2 {
+    font-size: 1.5rem;
+  }
+
+  .galaxy-section p {
+    font-size: 1rem;
+  }
+
   .card {
     padding: 1.5rem;
   }
@@ -292,6 +341,11 @@ canvas {
     width: 90px;
     height: 90px;
   }
+
+  .galaxy-section {
+    padding: 2rem 0.5rem;
+  }
+
 
   .card {
     padding: 1rem;
