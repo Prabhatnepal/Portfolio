@@ -37,6 +37,39 @@ canvas {
   color: #ccc;
   animation: fadeInUp 1.2s ease forwards;
 }
+#typed-text {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%) perspective(1000px) rotateX(10deg);
+  font-size: 2rem;
+  color: #00f7ff;
+  text-align: center;
+  text-shadow: 0 0 10px #0ff, 0 0 20px #0ff;
+  z-index: 10;
+}
+
+.glitch {
+  animation: glitch 0.3s ease-in-out;
+}
+
+@keyframes glitch {
+  0% { transform: translateX(0) scale(1); opacity: 1; }
+  25% { transform: translateX(-2px) scale(1.02); opacity: 0.8; }
+  50% { transform: translateX(2px) scale(1.01); opacity: 0.6; }
+  75% { transform: translateX(-1px) scale(1.03); opacity: 0.9; }
+  100% { transform: translateX(0) scale(1); opacity: 1; }
+}
+
+@keyframes pulse {
+  0% { text-shadow: 0 0 10px #0ff; }
+  50% { text-shadow: 0 0 30px #0ff, 0 0 60px #0ff; }
+  100% { text-shadow: 0 0 10px #0ff; }
+}
+
+.pulse {
+  animation: pulse 1s ease-in-out infinite;
+}
 
 .galaxy-section {
   position: relative;
