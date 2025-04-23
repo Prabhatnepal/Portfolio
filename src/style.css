@@ -48,7 +48,6 @@ canvas {
   align-items: center;
   z-index: 10;
   text-align: center;
-  backdrop-filter: blur(1px);
   border-radius: 20px;
   margin: 50px auto;
   max-width: 900px;
