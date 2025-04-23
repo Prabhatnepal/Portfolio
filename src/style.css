@@ -291,6 +291,22 @@ canvas {
   color: #ff6347;
 }
 
+#toTopBtn {
+  display: none;
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 1000;
+  font-size: 20px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+#toTopBtn:hover {
+  opacity: 1;
+}
+
 /* Mobile responsiveness */
 @media (max-width: 768px) {
   .intro h1 {
