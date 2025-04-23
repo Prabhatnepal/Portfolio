@@ -120,6 +120,8 @@ canvas {
   border-radius: 1rem;
   border: 1px solid rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+  animation: fadeInUp 1s ease forwards;
 }
 
 .contact-container h2 {
@@ -165,7 +167,7 @@ canvas {
 }
 
 .contact-container button:hover {
-  background: #ff3c20;
+  background: #65ff0c;
 }
 
 
