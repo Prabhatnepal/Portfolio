@@ -110,6 +110,7 @@ canvas {
 
 .contact-section {
   text-align: center;
+  display: flex;
 }
 
 .contact-container {
