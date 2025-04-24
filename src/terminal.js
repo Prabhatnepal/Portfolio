@@ -66,7 +66,7 @@ const lines = [
   startBtn.addEventListener("click", () => {
     startScreen.style.display = "none";
     document.querySelector(".terminal-intro").style.display = "flex";
-/*     staticSound.play().catch((err) => console.log("Autoplay blocked:", err)); */
+    staticSound.play().catch((err) => console.log("Autoplay blocked:", err));
     typeNextChar();
   });
   
