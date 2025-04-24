@@ -57,11 +57,7 @@ function typeNextChar() {
       document.querySelector(".terminal-intro").classList.add("fade-out");
       staticSound.pause();
       setTimeout(() => {
-        // Log the redirect URL for debugging
-        console.log("Redirecting to:", `${window.location.origin}/main.html`);
-
-        // Use replace to redirect
-        window.location.replace(`${window.location.origin}/main.html`);
+        window.location.href = "prabhat/main.html"; // <-- redirect target
       }, 1500);
     }, 1500);
   }
@@ -70,12 +66,6 @@ function typeNextChar() {
 startBtn.addEventListener("click", () => {
   startScreen.style.display = "none";
   document.querySelector(".terminal-intro").style.display = "flex";
-  
-  // Try to play the static sound
-  staticSound.play().catch((err) => {
-    console.log("Autoplay blocked:", err);
-    // Optionally inform the user
-  });
-  
+  staticSound.play().catch((err) => console.log("Autoplay blocked:", err));
   typeNextChar();
 });
