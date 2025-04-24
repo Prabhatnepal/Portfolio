@@ -80,6 +80,7 @@ canvas {
   justify-content: center;
   align-items: center;
   z-index: 10;
+  cursor: not-allowed;
   text-align: center;
   border-radius: 20px;
   margin: 50px auto;
@@ -91,10 +92,30 @@ canvas {
   font-size: 3rem;
   margin-bottom: 20px;
   background: linear-gradient(90deg, #00ffff, #ff00ff);
- background-clip: text;
--webkit-text-fill-color: transparent;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 
   font-weight: 700;
+}
+
+.galaxy-section::after {
+  content: "❗ mouse restricted area❗";
+  top: 100%;
+  left: 0;
+  background: #ffdddd;
+  color: #a00;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  font-size: 24px;
+  margin-top: 4px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+
+.galaxy-section:hover::after {
+  opacity: 1;
 }
 
 .galaxy-section p {
