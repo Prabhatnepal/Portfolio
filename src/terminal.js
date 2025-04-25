@@ -35,6 +35,8 @@ const staticSound = document.getElementById("staticSound");
 const startScreen = document.getElementById("start-screen");
 const startBtn = document.getElementById("start-btn");
 
+const terminalIntro = document.querySelector(".terminal-intro");
+
 let line = 0;
 let char = 0;
 
@@ -54,19 +56,24 @@ function typeNextChar() {
   } else {
     // After typing ends
     setTimeout(() => {
-      document.querySelector(".terminal-intro").classList.add("fade-out");
-      staticSound.pause();
-      setTimeout(() => {
-        console.log("Redirecting...");
-        window.location.replace('main.html'); // <-- redirect target
-      }, 1500);
+      if (terminalIntro) {
+        terminalIntro.classList.add("fade-out");
+        staticSound.pause();
+        setTimeout(() => {
+          console.log("Redirecting...");
+          window.location.replace('main.html'); // or 'prabhat/main.html' if needed
+        }, 1500);
+      } else {
+        console.error(".terminal-intro not found!");
+      }
     }, 1500);
   }
 }
 
 startBtn.addEventListener("click", () => {
   startScreen.style.display = "none";
-  document.querySelector(".terminal-intro").style.display = "flex";
+  if (terminalIntro) terminalIntro.style.display = "flex";
+
   staticSound.play().catch((err) => console.log("Autoplay blocked:", err));
   typeNextChar();
 });
