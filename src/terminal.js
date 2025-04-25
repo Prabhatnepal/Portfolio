@@ -57,7 +57,8 @@ function typeNextChar() {
       document.querySelector(".terminal-intro").classList.add("fade-out");
       staticSound.pause();
       setTimeout(() => {
-        window.location.replace('main.html');// <-- redirect target
+        console.log("Redirecting...");
+        window.location.replace('main.html'); // <-- redirect target
       }, 1500);
     }, 1500);
   }
