@@ -1,10 +1,12 @@
-import './style.css';
-import * as THREE from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import gsap from "gsap";
-import ScrollTrigger from "gsap/ScrollTrigger";
+/* import './style.css'; */
+import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.176.0/build/three.module.js';
+import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.176.0/examples/jsm/controls/OrbitControls.js';
+import { gsap } from 'https://cdn.jsdelivr.net/npm/gsap@3.10.0/index.js'; 
+import { ScrollTrigger } from 'https://cdn.jsdelivr.net/npm/gsap@3.10.0/ScrollTrigger.min.js'; 
+gsap.registerPlugin(ScrollTrigger); // Register the plugin
 
-gsap.registerPlugin(ScrollTrigger);
+// your GSAP and ScrollTrigger code goes here
+
 
 // THREE.js Setup
 const scene = new THREE.Scene();
