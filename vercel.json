@@ -1,6 +1,7 @@
 {
     "rewrites": [
-      { "source": "prabhat/main.html", "destination": "/main" }
+      { "source": "/", "destination": "/index.html" },
+      { "source": "/main", "destination": "/main.html" }
     ]
   }
   
