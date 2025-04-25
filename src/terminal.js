@@ -1,3 +1,4 @@
+if (window.location.pathname.includes("index.html") || window.location.pathname === "/prabhat/"){
 const lines = [
   "> :INITIATE PROTOCOL_13",
   "> _// Decryption in progress..._",
@@ -61,7 +62,7 @@ function typeNextChar() {
         staticSound.pause();
         setTimeout(() => {
           console.log("Redirecting...");
-          window.location.replace('main.html');
+          window.location.replace('/prabhat/main.html');
         }, 1500);
       } else {
         console.error(".terminal-intro not found!");
@@ -78,3 +79,4 @@ startBtn.addEventListener("click", () => {
   staticSound.play().catch((err) => console.log("Autoplay blocked:", err));
   typeNextChar();
 });
+}
