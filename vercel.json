@@ -1,7 +1,5 @@
 {
-    "rewrites": [
-      { "source": "/", "destination": "/index.html" },
-      { "source": "/main", "destination": "/main.html" }
-    ]
-  }
-  
+  "rewrites": [
+    { "source": "/main", "destination": "../public/main.html" }
+  ]
+}
