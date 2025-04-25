@@ -61,12 +61,13 @@ function typeNextChar() {
         staticSound.pause();
         setTimeout(() => {
           console.log("Redirecting...");
-          window.location.replace('main.html'); // or 'prabhat/main.html' if needed
+          window.location.replace('main.html');
         }, 1500);
       } else {
         console.error(".terminal-intro not found!");
       }
     }, 1500);
+    
   }
 }
 
