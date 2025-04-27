@@ -59,6 +59,7 @@
 </head>
 
 <body>
+  <canvas id="glass-canvas" style="position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:999;"></canvas>
   <div id="start-screen">
     <button id="start-btn">Begin your Journey</button>
   </div>
@@ -126,15 +127,16 @@
         }
       } else {
         setTimeout(() => {
-          terminalIntro.classList.add("fade-out");
-          staticSound.pause();
-          setTimeout(() => {
-            document.body.style.opacity = "0";
-            setTimeout(() => {
-              window.location.href = "/main.html";
-            }, 500);
-          }, 500);
-        }, 1500);
+  terminalIntro.classList.add("fade-out");
+  staticSound.pause();
+  setTimeout(() => {
+    shatterGlass(); // 💥 Trigger Three.js shatter
+    setTimeout(() => {
+      window.location.href = "/main.html"; // Redirect after shatter
+    }, 1200); // wait until shards fly away
+  }, 500);
+}, 500);
+
       }
     }
 
@@ -145,5 +147,6 @@
       typeNextChar();
     });
   </script>
+  <script type="module" src="/script.js"></script>
 </body>
 </html>
