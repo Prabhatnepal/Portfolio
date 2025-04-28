@@ -56,7 +56,7 @@ animate();
 // Shatter animation with additional effects
 function shatterGlass() {
   // Glass-breaking sound effect
-  const glassSound = new Audio('/path/to/glass-shatter-sound.mp3');
+  const glassSound = new Audio('/sound/glass_break.wav');
   glassSound.play();
 
   shards.forEach(shard => {
