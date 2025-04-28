@@ -205,6 +205,7 @@ window.addEventListener('resize', () => {
 // GSAP Animations
 ScrollTrigger.refresh();
 
+// Intro animations
 gsap.from(".intro h1", {
   y: 50,
   opacity: 0,
@@ -212,73 +213,78 @@ gsap.from(".intro h1", {
   ease: "power3.out"
 });
 
-gsap.from(".intro p", {
-  y: 30,
+gsap.from("#typed-text", {
   opacity: 0,
   delay: 0.3,
   duration: 1,
   ease: "power3.out"
 });
 
-gsap.from(".card", {
-  scrollTrigger: {
-    trigger: ".card",
-    start: "top 90%",
-    toggleActions: "play none none none",
-  },
-  y: 50,
-  opacity: 0,
-  duration: 1,
-  stagger: 0.2,
-  ease: "back.out(1.7)",
+// Scroll-triggered normal text animations
+const scrollItems = [
+  { target: ".galaxy-section h2" },
+  { target: ".galaxy-section p", delay: 0.3 },
+  { target: ".card", stagger: 0.2, ease: "back.out(1.7)" },
+  { target: ".contact-container h2" },
+  { target: ".contact-container p", delay: 0.3 },
+  { target: ".contact-container form", delay: 0.5 }
+];
+
+scrollItems.forEach(({ target, delay = 0, stagger = 0, ease = "power3.out" }) => {
+  gsap.from(target, {
+    scrollTrigger: {
+      trigger: target,
+      start: "top 90%",
+      toggleActions: "play none none none"
+    },
+    y: 50,
+    opacity: 0,
+    delay,
+    stagger,
+    duration: 1,
+    ease
+  });
 });
 
-gsap.from(".galaxy-section h2", {
+// Profile section animations (special)
+gsap.from(".profile-img", {
   scrollTrigger: {
-    trigger: ".galaxy-section",
+    trigger: ".profile",
     start: "top 90%",
-    toggleActions: "play none none none",
+    toggleActions: "play none none none"
   },
-  y: 50,
+  y: 80,
   opacity: 0,
-  duration: 1,
-  ease: "power3.out"
+  scale: 0.8,
+  rotateX: 30,
+  duration: 1.2,
+  ease: "power4.out"
 });
 
-gsap.from(".galaxy-section p", {
+gsap.from(".profile h2, .profile p", {
   scrollTrigger: {
-    trigger: ".galaxy-section",
+    trigger: ".profile",
     start: "top 90%",
-    toggleActions: "play none none none",
+    toggleActions: "play none none none"
   },
-  y: 30,
+  y: 40,
   opacity: 0,
-  duration: 1,
   delay: 0.3,
+  duration: 1,
   ease: "power3.out"
 });
 
-gsap.from(".galaxy-section .card", {
+gsap.from(".profile .socials a", {
   scrollTrigger: {
-    trigger: ".galaxy-section .card",
+    trigger: ".profile",
     start: "top 90%",
-    toggleActions: "play none none none",
+    toggleActions: "play none none none"
   },
-  y: 50,
+  y: 20,
   opacity: 0,
-  duration: 1,
-  stagger: 0.2,
-  ease: "back.out(1.7)",
-});
-
-gsap.from(".footer", {
-  scrollTrigger: {
-    trigger: ".footer",
-    start: "top 90%",
-    toggleActions: "play none none none",
-  },
-  y: 50,
-  opacity: 0,
-  duration: 1,
-  ease: "power3.out"
+  scale: 0.8,
+  stagger: 0.1,
+  delay: 1,
+  duration: 0.8,
+  ease: "back.out(1.7)"
 });
