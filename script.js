@@ -1,10 +1,10 @@
 import * as THREE from 'https://cdn.skypack.dev/three@0.150.0';
 import { gsap } from 'https://cdn.skypack.dev/gsap';
 
-/* particlesJS.load(@dom-id, @path-json, @callback (optional)); */
-particlesJS.load('particles-js', './particles.json', function() {
-    console.log('callback - particles.js config loaded');
-  });
+particlesJS.load('particles-js', '/particles.json', function () {
+  console.log('loaded');
+});
+
 
 const canvas = document.getElementById('glass-canvas');
 const scene = new THREE.Scene();
