@@ -1,6 +1,11 @@
 import * as THREE from 'https://cdn.skypack.dev/three@0.150.0';
 import { gsap } from 'https://cdn.skypack.dev/gsap';
 
+/* particlesJS.load(@dom-id, @path-json, @callback (optional)); */
+particlesJS.load('particles-js', './particles.json', function() {
+    console.log('callback - particles.js config loaded');
+  });
+
 const canvas = document.getElementById('glass-canvas');
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
