@@ -109,4 +109,3 @@ function shatterGlass() {
 
 // Expose the function to the window object for use elsewhere
 window.shatterGlass = shatterGlass;
-

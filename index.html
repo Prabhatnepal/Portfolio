@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" type="image/svg+xml" href="https://img.icons8.com/?size=80&id=96646&format=png" />
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
   <title>Encrypted Access</title>
   <style>
     body {
@@ -14,6 +15,15 @@
       transition: opacity 1s ease;
       overflow: hidden;
     }
+
+    #particles-js {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0; 
+}
 
     #glass-text {
       position: absolute;
@@ -53,6 +63,7 @@
       font-family: 'Courier New', monospace;
       box-shadow: 0 0 10px #00ffcc;
       transition: 0.3s ease;
+      z-index: 1;
     }
 
     #start-btn:hover {
@@ -94,6 +105,10 @@
   </div>
 
   <audio id="staticSound" src="/sound/abcd.wav" preload="auto"></audio>
+
+  <!-- particlejs -->
+  <div id="particles-js"></div>
+  <script src="particles.js"></script>
 
   <script type="module">
     const lines = [
