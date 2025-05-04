@@ -13,7 +13,7 @@ const renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setPixelRatio(window.devicePixelRatio); // Ensures the canvas looks crisp on mobile devices
 
-camera.position.z = 5;
+camera.position.z = 10;
 
 // Create shattered glass pieces
 const shards = [];
