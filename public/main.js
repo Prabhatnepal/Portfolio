@@ -288,3 +288,8 @@ gsap.from(".profile .socials a", {
   duration: 0.8,
   ease: "back.out(1.7)"
 });
+
+
+  document.getElementById("more").addEventListener("click", function() {
+    window.location.href = "more.html";
+  });

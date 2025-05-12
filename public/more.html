@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Under Development</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: white;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    p {
+      font-size: 1.2rem;
+      opacity: 0.8;
+      margin-bottom: 30px;
+    }
+
+    #timer {
+      font-size: 2rem;
+      font-weight: bold;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 15px 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    }
+
+    .glow {
+      color: #ff6b6b;
+      animation: glow 1.5s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+      from {
+        text-shadow: 0 0 10px #ff6b6b, 0 0 20px #ff6b6b;
+      }
+      to {
+        text-shadow: 0 0 20px #ff8787, 0 0 30px #ff8787;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1 class="glow">🚧 Page Under Development 🚧</h1>
+  <p>I'm working on something amazing. Come back in:</p>
+  <div id="timer">Loading...</div>
+
+  <script>
+    const timerEl = document.getElementById("timer");
+
+    // Set the countdown date (10 years from now)
+    const now = new Date();
+    const countdownDate = new Date(now.getFullYear() + 10, now.getMonth(), now.getDate());
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = countdownDate - now;
+
+      if (distance < 0) {
+        timerEl.innerHTML = "🎉 The wait is over!";
+        return;
+      }
+
+      const years = Math.floor(distance / (1000 * 60 * 60 * 24 * 365));
+      const days = Math.floor((distance % (1000 * 60 * 60 * 24 * 365)) / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      timerEl.innerHTML = `
+        ${years}y : ${days}d : ${hours}h : ${minutes}m : ${seconds}s
+      `;
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown(); // Initial call
+  </script>
+</body>
+</html>
