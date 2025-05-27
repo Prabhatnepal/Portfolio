@@ -17,13 +17,13 @@
     }
 
     #particles-js {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0; 
-}
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0; 
+    }
 
     #glass-text {
       position: absolute;
@@ -44,6 +44,7 @@
         font-size: 1.2rem; /* Adjust font size for mobile */
       }
     }
+
     #start-screen {
       height: 100vh;
       background: black;
@@ -91,6 +92,48 @@
       opacity: 0;
       pointer-events: none;
     }
+
+    /* Loading Bar Styles */
+    .loading-container {
+      position: fixed;
+      top: 15%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80%;
+      max-width: 600px;
+      margin: 0 auto;
+      display: none; /* Hidden initially */
+      z-index: 15;
+      user-select: none;
+    }
+
+    .loading-bar {
+      width: 100%;
+      height: 25px;
+      background: #2f4050;
+      border-radius: 15px;
+      box-shadow: inset 0 1px 3px rgba(255,255,255,0.1);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .loading-progress {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #ff6a00, #ee0979);
+      border-radius: 15px 0 0 15px;
+      box-shadow: 0 0 8px #ff6a00, 0 0 15px #ee0979;
+      transition: width 0.2s linear;
+    }
+
+    .loading-text {
+      color: #fff;
+      text-align: center;
+      margin-top: 15px;
+      font-size: 1.2rem;
+      letter-spacing: 1.5px;
+      text-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+    }
   </style>
 </head>
 
@@ -105,6 +148,14 @@
   </div>
 
   <audio id="staticSound" src="/sound/abcd.wav" preload="auto"></audio>
+
+  <!-- Loading Bar -->
+  <div class="loading-container" id="loading-container">
+    <div class="loading-bar">
+      <div class="loading-progress" id="loading-progress"></div>
+    </div>
+    <div class="loading-text" id="loading-text">Loading...</div>
+  </div>
 
   <!-- particlejs -->
   <div id="particles-js"></div>
@@ -147,52 +198,97 @@
     const startScreen = document.getElementById("start-screen");
     const startBtn = document.getElementById("start-btn");
     const terminalIntro = document.querySelector(".terminal-intro");
+    const loadingContainer = document.getElementById("loading-container");
+    const loadingProgress = document.getElementById("loading-progress");
+    const loadingText = document.getElementById("loading-text");
 
-    let line = 0;
-    let char = 0;
+    let totalChars = lines.reduce((sum, line) => sum + line.length + 1, 0); // +1 for newline
+    let currentCharIndex = 0;
+    let flatText = lines.join('\n') + '\n';
+    let typingDone = false;
+    let loadingDone = false;
 
-    function typeNextChar() {
-      if (line < lines.length) {
-        const currentLine = lines[line];
-        if (char < currentLine.length) {
-          output.textContent += currentLine.charAt(char);
-          char++;
-          setTimeout(typeNextChar, 30);
-        } else {
-          output.textContent += "\n";
-          line++;
-          char = 0;
-          setTimeout(typeNextChar, 400);
-        }
-      } else {
+    function finishLoadingAndTyping() {
+      terminalIntro.classList.add("fade-out");
+      staticSound.pause();
+      setTimeout(() => {
+        shatterGlass(); // 💥 Trigger Three.js shatter
         setTimeout(() => {
-  terminalIntro.classList.add("fade-out");
-  staticSound.pause();
-  setTimeout(() => {
-    shatterGlass(); // 💥 Trigger Three.js shatter
-    setTimeout(() => {
-      window.location.href = "/main.html"; // Redirect after shatter
-    }, 1200); // wait until shards fly away
-  }, 500);
-}, 500);
+          window.location.href = "/main.html"; // Redirect after shatter
+        }, 1200);
+      }, 500);
+    }
 
-      }
+    function startLoadingAndTyping() {
+      output.textContent = "";
+      currentCharIndex = 0;
+      typingDone = false;
+      loadingDone = false;
+      loadingProgress.style.width = '0%';
+
+      loadingContainer.style.display = 'block';
+      terminalIntro.style.display = 'flex';
+
+      const totalDuration = 8000; // total animation time in ms (adjust for speed)
+      const intervalTime = 30; // interval for updates in ms
+      const steps = Math.floor(totalDuration / intervalTime);
+      let currentStep = 0;
+
+      const interval = setInterval(() => {
+        currentStep++;
+
+        // Calculate loading progress as percentage
+        let progressPercent = Math.min(100, (currentStep / steps) * 100);
+
+        // Calculate number of chars to show
+        let charsToShow = Math.floor((currentStep / steps) * totalChars);
+
+        // Update loading bar width
+        loadingProgress.style.width = progressPercent + '%';
+
+        // Update typed text
+        if (charsToShow > currentCharIndex) {
+          output.textContent = flatText.slice(0, charsToShow);
+          currentCharIndex = charsToShow;
+        }
+
+        // Check if typing is done
+        if (charsToShow >= totalChars) {
+          typingDone = true;
+        }
+
+        // Check if loading is done
+        if (progressPercent >= 100) {
+          loadingDone = true;
+        }
+
+        // If both done, finish animation
+        if (typingDone && loadingDone) {
+          clearInterval(interval);
+          loadingText.textContent = "Load Complete!";
+          setTimeout(() => {
+            loadingContainer.style.display = 'none';
+            finishLoadingAndTyping();
+          }, 1000);
+        }
+
+      }, intervalTime);
     }
 
     startBtn.addEventListener("click", () => {
       startScreen.style.display = "none";
-      terminalIntro.style.display = "flex";
+      startLoadingAndTyping();
       staticSound.play().catch(err => console.log("Autoplay blocked:", err));
-      typeNextChar();
     });
 
     /* particlesJS.load(@dom-id, @path-json, @callback (optional)); */
-particlesJS.load('particles-js', './particles.json', function() {
-    console.log('callback - particles.js config loaded');
-  });
+    particlesJS.load('particles-js', './particles.json', function() {
+      console.log('callback - particles.js config loaded');
+    });
   </script>
   <script type="module" src="/script.js"></script>
   <script type="module" src="/blockInspect.js"></script>
 
 </body>
 </html>
+
