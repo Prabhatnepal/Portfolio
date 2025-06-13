@@ -375,13 +375,27 @@
   const loadingBarContainer = document.querySelector('.loading-bar-container');
   const quoteEl = document.querySelector('.quote-container');
 
-  // Countdown target: 1 year from now
-  const launchDate = new Date();
-  launchDate.setFullYear(launchDate.getFullYear() + 1);
+  const LAUNCH_KEY = 'launchDate';
+  const PUBLISH_KEY = 'publishDate';
 
-  // Project start date = today
-  const publishDate = new Date();
+  // Check localStorage for saved dates
+  let launchDate = localStorage.getItem(LAUNCH_KEY);
+  let publishDate = localStorage.getItem(PUBLISH_KEY);
 
+  if (!launchDate || !publishDate) {
+    const now = new Date();
+    const future = new Date(now);
+    future.setFullYear(future.getFullYear() + 1);
+
+    launchDate = future.toISOString();
+    publishDate = now.toISOString();
+
+    localStorage.setItem(LAUNCH_KEY, launchDate);
+    localStorage.setItem(PUBLISH_KEY, publishDate);
+  }
+
+  launchDate = new Date(launchDate);
+  publishDate = new Date(publishDate);
   const totalDuration = launchDate - publishDate;
 
   const quotes = [
@@ -441,8 +455,8 @@
 
   setInterval(updateCountdown, 1000);
   setInterval(updateQuote, 8000);
-  
-  </script>
+</script>
+
   <script type="module" src="../blockInspect.js"></script>
 </body>
 </html>
