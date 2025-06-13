@@ -369,75 +369,79 @@
   <p class="quote-container" aria-live="polite" aria-atomic="true" aria-label="Inspirational quote"></p>
 
   <script>
-    const timerEl = document.getElementById("timer");
-    const loadingBar = document.querySelector('.loading-bar');
-    const percentageLabel = document.querySelector('.percentage-label');
-    const loadingBarContainer = document.querySelector('.loading-bar-container');
-    const quoteEl = document.querySelector('.quote-container');
+  const timerEl = document.getElementById("timer");
+  const loadingBar = document.querySelector('.loading-bar');
+  const percentageLabel = document.querySelector('.percentage-label');
+  const loadingBarContainer = document.querySelector('.loading-bar-container');
+  const quoteEl = document.querySelector('.quote-container');
 
+  // Countdown target: 1 year from now
+  const launchDate = new Date();
+  launchDate.setFullYear(launchDate.getFullYear() + 1);
+
+  // Project start date = today
+  const publishDate = new Date();
+
+  const totalDuration = launchDate - publishDate;
+
+  const quotes = [
+    "Patience is not the ability to wait, but the ability to keep a good attitude while waiting.",
+    "Great things take time. Stay tuned!",
+    "Every moment is a fresh beginning.",
+    "Good things come to those who wait… and work hard.",
+    "The best is yet to come.",
+    "Progress, not perfection.",
+    "Keep calm, greatness is on the way.",
+    "This is just the start of something amazing.",
+    "Dream big, start small.",
+    "Stay positive, work hard, make it happen.",
+    "For more updates, follow me on nepalprabhat21@gmail.com"
+  ];
+
+  let quoteIndex = 0;
+  function updateQuote() {
+    quoteEl.style.opacity = 0;
+    setTimeout(() => {
+      quoteEl.textContent = quotes[quoteIndex];
+      quoteEl.style.opacity = 0.85;
+      quoteIndex = (quoteIndex + 1) % quotes.length;
+    }, 500);
+  }
+
+  function updateCountdown() {
     const now = new Date();
-    const countdownDate = new Date(now.getFullYear() + 10, now.getMonth(), now.getDate());
-    const startDate = now.getTime();
+    const distance = launchDate - now;
 
-    const totalDuration = countdownDate.getTime() - startDate;
-
-    const quotes = [
-      "Patience is not the ability to wait, but the ability to keep a good attitude while waiting.",
-      "Great things take time. Stay tuned!",
-      "Every moment is a fresh beginning.",
-      "Good things come to those who wait… and work hard.",
-      "The best is yet to come.",
-      "Progress, not perfection.",
-      "Keep calm, greatness is on the way.",
-      "This is just the start of something amazing.",
-      "Dream big, start small.",
-      "Stay positive, work hard, make it happen.",
-      "for more updates, follow me on nepalprabhat21@gmail.com"
-    ];
-
-    let quoteIndex = 0;
-    function updateQuote() {
-      quoteEl.style.opacity = 0;
-      setTimeout(() => {
-        quoteEl.textContent = quotes[quoteIndex];
-        quoteEl.style.opacity = 0.85;
-        quoteIndex = (quoteIndex + 1) % quotes.length;
-      }, 500);
+    if (distance <= 0) {
+      timerEl.innerHTML = "🎉 The wait is over!";
+      loadingBar.style.width = '100%';
+      percentageLabel.textContent = '100%';
+      loadingBarContainer.setAttribute('aria-valuenow', 100);
+      return;
     }
 
-   function updateCountdown() {
-      const now = new Date();
-      const distance = launchDate - now;
+    const years = Math.floor(distance / (1000 * 60 * 60 * 24 * 365));
+    const days = Math.floor((distance % (1000 * 60 * 60 * 24 * 365)) / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-      if (distance <= 0) {
-        timerEl.innerHTML = "🎉 The wait is over!";
-        loadingBar.style.width = '100%';
-        percentageLabel.textContent = '100%';
-        loadingBarContainer.setAttribute('aria-valuenow', 100);
-        return;
-      }
+    timerEl.innerHTML = `${years}y : ${days}d : ${hours}h : ${minutes}m : ${seconds}s`;
 
-      const years = Math.floor(distance / (1000 * 60 * 60 * 24 * 365));
-      const days = Math.floor((distance % (1000 * 60 * 60 * 24 * 365)) / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    const elapsed = now - publishDate;
+    const percent = Math.min(100, Math.floor((elapsed / totalDuration) * 100));
 
-      timerEl.innerHTML = `${years}y : ${days}d : ${hours}h : ${minutes}m : ${seconds}s`;
+    loadingBar.style.width = percent + '%';
+    percentageLabel.textContent = percent + '%';
+    loadingBarContainer.setAttribute('aria-valuenow', percent);
+  }
 
-      const elapsed = now - publishDate;
-      const percent = Math.min(100, Math.floor((elapsed / totalDuration) * 100));
+  updateCountdown();
+  updateQuote();
 
-      loadingBar.style.width = percent + '%';
-      percentageLabel.textContent = percent + '%';
-      loadingBarContainer.setAttribute('aria-valuenow', percent);
-    }
-
-    updateCountdown();
-    updateQuote();
-
-    setInterval(updateCountdown, 1000);
-    setInterval(updateQuote, 8000);
+  setInterval(updateCountdown, 1000);
+  setInterval(updateQuote, 8000);
+  
   </script>
   <script type="module" src="../blockInspect.js"></script>
 </body>
