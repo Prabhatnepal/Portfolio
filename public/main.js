@@ -5,7 +5,7 @@ import { gsap } from 'https://cdn.jsdelivr.net/npm/gsap@3.10.0/index.js';
 import { ScrollTrigger } from 'https://cdn.jsdelivr.net/npm/gsap@3.10.0/ScrollTrigger.min.js'; 
 gsap.registerPlugin(ScrollTrigger); // Register the plugin
 
-// your GSAP and ScrollTrigger code goes here
+//GSAP and ScrollTrigger
 
 
 // THREE.js Setup

@@ -405,11 +405,11 @@
       }, 500);
     }
 
-    function updateCountdown() {
-      const now = new Date().getTime();
-      const distance = countdownDate.getTime() - now;
+   function updateCountdown() {
+      const now = new Date();
+      const distance = launchDate - now;
 
-      if (distance < 0) {
+      if (distance <= 0) {
         timerEl.innerHTML = "🎉 The wait is over!";
         loadingBar.style.width = '100%';
         percentageLabel.textContent = '100%';
@@ -423,11 +423,9 @@
       const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-      timerEl.innerHTML = `
-        ${years}y : ${days}d : ${hours}h : ${minutes}m : ${seconds}s
-      `;
+      timerEl.innerHTML = `${years}y : ${days}d : ${hours}h : ${minutes}m : ${seconds}s`;
 
-      const elapsed = now - startDate;
+      const elapsed = now - publishDate;
       const percent = Math.min(100, Math.floor((elapsed / totalDuration) * 100));
 
       loadingBar.style.width = percent + '%';
