@@ -39,7 +39,7 @@ canvas {
 }
 #typed-text {
   position: absolute;
-  top: 10%;
+  top:7%;
   left: 50%;
   transform: translateX(-50%) perspective(1000px) rotateX(10deg);
   font-size: 2rem;
