@@ -430,7 +430,7 @@ canvas {
 
   #typed-text  {
     font-size: 1rem;
-    top : 7%;
+    top : 6%;
   }
 
 
@@ -493,6 +493,7 @@ canvas {
 
   #typed-text  {
     font-size: 0.95rem;
+    top : 6%;
   }
 
   .profile h2 {
