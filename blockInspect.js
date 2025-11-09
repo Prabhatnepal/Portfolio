@@ -1,17 +1,11 @@
-// Disable Right-Click
-document.addEventListener("contextmenu", (e) => e.preventDefault());
+document.addEventListener('contextmenu', event => event.preventDefault());
 
-// Disable Specific Keys
-document.addEventListener("keydown", (e) => {
-  // Block F12
-  if (e.key === "F12") e.preventDefault();
-
-  // Block Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+Shift+C
-  if (e.ctrlKey && e.shiftKey && ["I", "J", "C"].includes(e.key)) e.preventDefault();
-
-  // Block Ctrl+U (View Source)
-  if (e.ctrlKey && e.key === "U") e.preventDefault();
-
-  // Block Ctrl+S (Save)
-  if (e.ctrlKey && e.key === "S") e.preventDefault();
+document.addEventListener('keydown', function (event) {
+  if (
+    event.key === "F12" ||
+    (event.ctrlKey && event.shiftKey && (event.key === "I" || event.key === "J" || event.key === "C")) ||
+    (event.ctrlKey && event.key === "U") 
+  ) {
+    event.preventDefault();
+  }
 });
