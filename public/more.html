@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="https://img.icons8.com/?size=80&id=GV2zveaq1T9V&format=png" />
+  <title>Under Development</title>
+  <style>
+    /* Real-time background animation: soft moving gradient with noise */
+    @keyframes backgroundShift {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      background: linear-gradient(270deg, #0f2027, #203a43, #2c5364, #0f2027);
+      background-size: 800% 800%;
+      animation: backgroundShift 30s ease infinite;
+      color: white;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      text-align: center;
+      overflow: hidden;
+      padding: 20px;
+      box-sizing: border-box;
+      position: relative;
+    }
+
+    /* Subtle noise overlay for texture */
+    body::before {
+      content: "";
+      pointer-events: none;
+      position: absolute;
+      top: 0; left: 0; bottom: 0; right: 0;
+      opacity: 0.06;
+      background: url('https://www.transparenttextures.com/patterns/asfalt-light.png') repeat;
+      z-index: 0;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      user-select: none;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Hourglass container */
+    .hourglass {
+      position: relative;
+      width: 26px;
+      height: 48px;
+      background: transparent;
+      border: 3px solid #ff6b6b;
+      border-top: none;
+      border-bottom: none;
+      clip-path: polygon(
+        0% 0%, 100% 0%, 100% 10%, 60% 50%, 100% 90%, 100% 100%, 0% 100%, 0% 90%, 40% 50%, 0% 10%
+      );
+      filter: drop-shadow(0 0 3px #ff6b6b);
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    /* Top sand */
+    .hourglass .top-sand {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 45%;
+      background: linear-gradient(135deg, #ff6ec4, #7873f5);
+      clip-path: polygon(
+        10% 10%, 90% 10%, 60% 50%, 40% 50%
+      );
+      animation: sandDrop 3s linear infinite;
+      filter: drop-shadow(0 0 5px #ff6ec4);
+      transform-origin: bottom center;
+      opacity: 0.7;
+      z-index: 2;
+    }
+
+    /* Bottom sand */
+    .hourglass .bottom-sand {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 10%;
+      background: linear-gradient(135deg, #3ad59f, #7873f5);
+      clip-path: polygon(
+        40% 50%, 60% 50%, 90% 90%, 10% 90%
+      );
+      box-shadow: 0 0 12px #3ad59f;
+      animation: sandFill 3s linear infinite;
+      opacity: 0.8;
+      z-index: 2;
+    }
+
+    /* Falling sand drop */
+    .hourglass .drop {
+      position: absolute;
+      top: 43%;
+      left: 50%;
+      width: 4px;
+      height: 12px;
+      background: radial-gradient(circle at center, #ff6ec4 30%, transparent 70%);
+      border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+      box-shadow: 0 0 8px #ff6ec4;
+      animation: dropFall 3s linear infinite;
+      transform: translateX(-50%);
+      opacity: 0.9;
+      z-index: 3;
+    }
+
+    @keyframes sandDrop {
+      0% { transform: scaleY(1); opacity: 0.7; }
+      50% { transform: scaleY(0); opacity: 0; }
+      100% { transform: scaleY(1); opacity: 0.7; }
+    }
+
+    @keyframes sandFill {
+      0% { height: 10%; opacity: 0.8; }
+      50% { height: 40%; opacity: 1; }
+      100% { height: 10%; opacity: 0.8; }
+    }
+
+    @keyframes dropFall {
+      0% { top: 43%; opacity: 0.9; }
+      45% { top: 80%; opacity: 0.9; }
+      50% { top: 80%; opacity: 0; }
+      51% { top: 43%; opacity: 0; }
+      100% { top: 43%; opacity: 0.9; }
+    }
+
+    p {
+      font-size: 1.2rem;
+      opacity: 0.8;
+      margin-bottom: 30px;
+      position: relative;
+      z-index: 1;
+    }
+
+    #timer {
+      font-size: 2.4rem;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.12);
+      padding: 20px 40px;
+      border-radius: 12px;
+      box-shadow: 0 0 25px rgba(255,255,255,0.25);
+      margin-bottom: 30px;
+      letter-spacing: 2px;
+      font-variant-numeric: tabular-nums;
+      min-width: 320px;
+      animation: glowTimer 2s ease-in-out infinite alternate;
+      user-select: none;
+      position: relative;
+      z-index: 1;
+    }
+
+    @keyframes glowTimer {
+      0% {
+        text-shadow:
+          0 0 8px #ff6b6b,
+          0 0 20px #ff6b6b,
+          0 0 30px #ff6b6b;
+      }
+      100% {
+        text-shadow:
+          0 0 12px #7873f5,
+          0 0 25px #7873f5,
+          0 0 40px #3ad59f;
+      }
+    }
+
+    .glow {
+      color: #ff6b6b;
+      animation: glow 1.5s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+      from {
+        text-shadow: 0 0 10px #ff6b6b, 0 0 20px #ff6b6b;
+      }
+      to {
+        text-shadow: 0 0 20px #1100ff, 0 0 30px #1100ff;
+      }
+    }
+
+    .loading-bar-container {
+      width: 80%;
+      max-width: 600px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 0 30px rgba(0,0,0,0.3);
+      position: relative;
+      height: 36px;
+      margin-bottom: 15px;
+      min-width: 320px;
+      z-index: 1;
+    }
+
+    .loading-bar {
+      height: 100%;
+      width: 0;
+      border-radius: 12px;
+      transition: width 0.5s ease-out;
+      box-shadow: 0 0 15px #ff6ec4;
+      background: linear-gradient(90deg, #4caf50, #ffeb3b, #f44336);
+      background-size: 300% 100%;
+      animation: none;
+    }
+
+    .percentage-label {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: white;
+      text-shadow: 0 0 12px rgba(0,0,0,0.8);
+      pointer-events: none;
+      user-select: none;
+      letter-spacing: 1px;
+      animation: pulseLabel 2s ease-in-out infinite alternate;
+      user-select: none;
+      z-index: 2;
+    }
+
+    @keyframes pulseLabel {
+      0% {
+        text-shadow: 0 0 12px rgba(0,0,0,0.8);
+      }
+      100% {
+        text-shadow:
+          0 0 15px #ff6ec4,
+          0 0 20px #ff6ec4,
+          0 0 30px #ff6ec4;
+      }
+    }
+
+    .quote-container {
+      width: 80%;
+      max-width: 600px;
+      font-style: italic;
+      font-size: 1.1rem;
+      opacity: 0.85;
+      color: #ddd;
+      min-height: 40px;
+      margin-top: 0;
+      user-select: none;
+      transition: opacity 0.5s ease-in-out;
+      font-weight: 500;
+      position: relative;
+      z-index: 1;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 10px 10px 20px 10px;
+      }
+      h1 {
+        font-size: 2.4rem;
+        gap: 14px;
+      }
+      .hourglass {
+        width: 20px;
+        height: 38px;
+        border-width: 2.5px;
+      }
+      #timer {
+        font-size: 1.8rem;
+        padding: 16px 28px;
+        min-width: 280px;
+      }
+      .loading-bar-container {
+        min-width: 280px;
+        width: 95%;
+        height: 32px;
+      }
+      .percentage-label {
+        font-size: 1rem;
+      }
+      p {
+        font-size: 1rem;
+      }
+      .quote-container {
+        font-size: 0.95rem;
+        width: 95%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 1.9rem;
+        gap: 10px;
+      }
+      .hourglass {
+        width: 16px;
+        height: 30px;
+        border-width: 2px;
+      }
+      #timer {
+        font-size: 1.4rem;
+        padding: 12px 20px;
+        min-width: unset;
+        width: 100%;
+        box-sizing: border-box;
+      }
+      .loading-bar-container {
+        min-width: unset;
+        width: 100%;
+        height: 28px;
+      }
+      .percentage-label {
+        font-size: 0.85rem;
+      }
+      p {
+        font-size: 0.9rem;
+      }
+      .quote-container {
+        font-size: 0.85rem;
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>
+    <span class="hourglass" aria-hidden="true">
+      <div class="top-sand"></div>
+      <div class="bottom-sand"></div>
+      <div class="drop"></div>
+    </span>
+    Page Under Development
+    <span class="hourglass" aria-hidden="true">
+      <div class="top-sand"></div>
+      <div class="bottom-sand"></div>
+      <div class="drop"></div>
+    </span>
+  </h1>
+  <p>I'm working on something amazing. Come back in:</p>
+  <div id="timer" aria-live="polite" aria-atomic="true" aria-label="Countdown timer"></div>
+
+  <div class="loading-bar-container" aria-label="Loading progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+    <div class="loading-bar"></div>
+    <div class="percentage-label">0%</div>
+  </div>
+
+  <p class="quote-container" aria-live="polite" aria-atomic="true" aria-label="Inspirational quote"></p>
+
+  <script>
+  const timerEl = document.getElementById("timer");
+  const loadingBar = document.querySelector('.loading-bar');
+  const percentageLabel = document.querySelector('.percentage-label');
+  const loadingBarContainer = document.querySelector('.loading-bar-container');
+  const quoteEl = document.querySelector('.quote-container');
+
+  // Set publish date (now) and launch date (1 year later)
+  const publishDate = new Date("2025-06-13T00:00:00");
+  const launchDate = new Date("2027-04-01T00:00:00");
+  const totalDuration = launchDate - publishDate;
+
+  const quotes = [
+    "Patience is not the ability to wait, but the ability to keep a good attitude while waiting.",
+    "Great things take time. Stay tuned!",
+    "Every moment is a fresh beginning.",
+    "Good things come to those who wait… and work hard.",
+    "The best is yet to come.",
+    "Progress, not perfection.",
+    "Keep calm, greatness is on the way.",
+    "This is just the start of something amazing.",
+    "Dream big, start small.",
+    "Stay positive, work hard, make it happen.",
+    "For more updates, follow me on nepalprabhat21@gmail.com"
+  ];
+
+  let quoteIndex = 0;
+  function updateQuote() {
+    quoteEl.style.opacity = 0;
+    setTimeout(() => {
+      quoteEl.textContent = quotes[quoteIndex];
+      quoteEl.style.opacity = 0.85;
+      quoteIndex = (quoteIndex + 1) % quotes.length;
+    }, 500);
+  }
+
+  function updateCountdown() {
+    const now = new Date();
+    const distance = launchDate - now;
+
+    if (distance <= 0) {
+      timerEl.innerHTML = "🎉 The wait is over!";
+      loadingBar.style.width = '100%';
+      percentageLabel.textContent = '100%';
+      loadingBarContainer.setAttribute('aria-valuenow', 100);
+      return;
+    }
+
+    const years = Math.floor(distance / (1000 * 60 * 60 * 24 * 365));
+    const days = Math.floor((distance % (1000 * 60 * 60 * 24 * 365)) / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    timerEl.innerHTML = `${years}y : ${days}d : ${hours}h : ${minutes}m : ${seconds}s`;
+
+    const elapsed = now - publishDate;
+    const percent = Math.min(100, Math.floor((elapsed / totalDuration) * 100));
+
+    loadingBar.style.width = percent + '%';
+    percentageLabel.textContent = percent + '%';
+    loadingBarContainer.setAttribute('aria-valuenow', percent);
+  }
+
+  updateCountdown();
+  updateQuote();
+
+  setInterval(updateCountdown, 1000);
+  setInterval(updateQuote, 8000);
+  
+  </script>
+  <script type="module" src="../blockInspect.js"></script>
+</body>
+</html>
+

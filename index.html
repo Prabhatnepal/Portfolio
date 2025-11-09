@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="https://img.icons8.com/?size=80&id=96646&format=png" />
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <title>Encrypted Access</title>
+
+  <style>
+    body {
+      margin: 0;
+      background: black;
+      color: #00ff00;
+      font-family: 'Courier New', monospace;
+      transition: opacity 1s ease;
+      overflow: hidden;
+    }
+
+    #particles-js {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+
+    #glass-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #00ff00;
+      font-family: 'Courier New', monospace;
+      font-size: 1.5rem;
+      z-index: 2;
+      text-align: center;
+      max-width: 90%;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 768px) {
+      #glass-text {
+        font-size: 1.2rem;
+      }
+    }
+
+    #start-screen {
+      height: 100vh;
+      background: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    #start-btn {
+      font-size: 1.2rem;
+      padding: 1rem 2rem;
+      background-color: #00ff00;
+      color: black;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: 'Courier New', monospace;
+      box-shadow: 0 0 10px #00ff00;
+      transition: 0.3s ease;
+    }
+
+    #start-btn:hover {
+      background-color: #00cc00;
+      box-shadow: 0 0 20px #00ff00;
+    }
+
+    .terminal-intro {
+      backdrop-filter: blur(4px);
+      border-radius: 10px;
+      height: 100vh;
+      padding: 2rem;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      white-space: pre-wrap;
+      overflow: hidden;
+      background: black;
+      color: #00ff00;
+      z-index: 10;
+    }
+
+    .fade-out {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .loading-container {
+      position: fixed;
+      top: 15%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80%;
+      max-width: 600px;
+      margin: 0 auto;
+      display: none;
+      z-index: 15;
+      user-select: none;
+    }
+
+    .loading-bar {
+      width: 100%;
+      height: 25px;
+      background: #2f4050;
+      border-radius: 15px;
+      box-shadow: inset 0 1px 3px rgba(255,255,255,0.1);
+      overflow: hidden;
+    }
+
+    .loading-progress {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #00ff00, #007700);
+      border-radius: 15px 0 0 15px;
+      box-shadow: 0 0 8px #00ff00, 0 0 15px #00bb00;
+      transition: width 0.2s linear;
+    }
+
+    .loading-text {
+      color: #00ff00;
+      text-align: center;
+      margin-top: 15px;
+      font-size: 1.2rem;
+      letter-spacing: 1.5px;
+      text-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Canvas for Matrix Rain -->
+  <canvas id="glass-canvas" style="position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:0;"></canvas>
+
+  <div id="start-screen">
+    <button id="start-btn">Begin your Journey</button>
+  </div>
+
+  <div class="terminal-intro">
+    <pre id="crypticText"></pre>
+  </div>
+
+  <audio id="staticSound" src="/sound/abcd.wav" preload="auto"></audio>
+
+  <!-- Loading Bar -->
+  <div class="loading-container" id="loading-container">
+    <div class="loading-bar">
+      <div class="loading-progress" id="loading-progress"></div>
+    </div>
+    <div class="loading-text" id="loading-text">Loading...</div>
+  </div>
+
+  <!-- particlejs -->
+  <div id="particles-js"></div>
+
+  <script type="module">
+    const lines = [
+      "> :INITIATE PROTOCOL_13",
+      "> _// Decryption in progress..._",
+      "",
+      "> [●] SIGNAL FOUND",
+      "> [●] SOURCE: UNKNOWN",
+      "> [●] ID: ███████ – ALIAS: “PRABHAT”",
+      "",
+      "> _He doesn't speak in code…_",
+      "> _He **is** the code._",
+      "",
+      "—",
+      "> You’ve followed the static.",
+      "> You’ve heard the fragments.",
+      "> Now you’re here.",
+      "> But why?",
+      "",
+      "> There is no homepage.",
+      "> No “About Me.”",
+      "> Only fragments—",
+      "> scattered across time,",
+      "> hidden behind glass and shadows.",
+      "",
+      "> █ ACCESS LEVEL: RESTRICTED █",
+      "> 🜃 Enter the archive.",
+      "> 🜄 Decode the signals.",
+      "> 🜁 Follow the patterns.",
+      "> 🜂 Uncover the architect.",
+      "",
+      "> _Begin._"
+    ];
+
+    const output = document.getElementById("crypticText");
+    const staticSound = document.getElementById("staticSound");
+    const startScreen = document.getElementById("start-screen");
+    const startBtn = document.getElementById("start-btn");
+    const terminalIntro = document.querySelector(".terminal-intro");
+    const loadingContainer = document.getElementById("loading-container");
+    const loadingProgress = document.getElementById("loading-progress");
+    const loadingText = document.getElementById("loading-text");
+
+    function textToBinary(str) {
+      return Array.from(str).map(ch => {
+        const b = ch.charCodeAt(0).toString(2);
+        return b.padStart(8, '0');
+      }).join(' ') + '\n';
+    }
+
+    let plainFlat = lines.join('\n') + '\n';
+    let flatText = textToBinary(plainFlat);
+
+    let totalChars = flatText.length;
+    let currentCharIndex = 0;
+    let typingDone = false;
+    let loadingDone = false;
+
+    function finishLoadingAndTyping() {
+      terminalIntro.classList.add("fade-out");
+      staticSound.pause();
+      setTimeout(() => {
+        window.location.href = "/main.html";
+      }, 1200);
+    }
+
+    function startLoadingAndTyping() {
+      output.textContent = "";
+      currentCharIndex = 0;
+      typingDone = false;
+      loadingDone = false;
+      loadingProgress.style.width = '0%';
+
+      loadingContainer.style.display = 'block';
+      terminalIntro.style.display = 'flex';
+
+      const totalDuration = 8000;
+      const intervalTime = 30;
+      const steps = Math.floor(totalDuration / intervalTime);
+      let currentStep = 0;
+
+      const interval = setInterval(() => {
+        currentStep++;
+
+        let progressPercent = Math.min(100, (currentStep / steps) * 100);
+        let charsToShow = Math.floor((currentStep / steps) * totalChars);
+
+        loadingProgress.style.width = progressPercent + '%';
+
+        if (charsToShow > currentCharIndex) {
+          output.textContent = flatText.slice(0, charsToShow);
+          currentCharIndex = charsToShow;
+        }
+
+        if (charsToShow >= totalChars) typingDone = true;
+        if (progressPercent >= 100) loadingDone = true;
+
+        if (typingDone && loadingDone) {
+          clearInterval(interval);
+          loadingText.textContent = "Load Complete!";
+          setTimeout(() => {
+            loadingContainer.style.display = 'none';
+            finishLoadingAndTyping();
+          }, 1000);
+        }
+
+      }, intervalTime);
+    }
+
+    startBtn.addEventListener("click", () => {
+      startScreen.style.display = "none";
+      startLoadingAndTyping();
+      staticSound.play().catch(err => console.log("Autoplay blocked:", err));
+    });
+
+    particlesJS.load('particles-js', './particles.json');
+
+    /*==========================
+      MATRIX RAIN BACKGROUND
+    ==========================*/
+    (function initMatrix() {
+      const canvas = document.getElementById('glass-canvas');
+      const ctx = canvas.getContext('2d');
+
+      const fontSize = 14;
+      let columns = window.innerWidth / fontSize;
+      let drops = [];
+
+      for (let i = 0; i < columns; i++) drops[i] = 1;
+
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      function draw() {
+        ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.fillStyle = "#00ff00";
+        ctx.font = fontSize + "px Courier New";
+
+        for (let i = 0; i < drops.length; i++) {
+          let text = Math.round(Math.random());
+          ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+          if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+            drops[i] = 0;
+          }
+          drops[i]++;
+        }
+
+        requestAnimationFrame(draw);
+      }
+
+      draw();
+    })();
+  </script>
+
+</body>
+</html>
