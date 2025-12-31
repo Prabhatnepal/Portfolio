@@ -1,0 +1,36 @@
+/* 🎉 New Year Overlay */
+#newYearOverlay {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle, #000 40%, #020024);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  animation: fadeOut 2s ease forwards;
+  animation-delay: 5s;
+}
+
+#newYearOverlay h1 {
+  font-size: clamp(2rem, 6vw, 4.5rem);
+  color: gold;
+  text-shadow:
+    0 0 10px gold,
+    0 0 20px orange,
+    0 0 40px red;
+  animation: glow 1.5s infinite alternate;
+}
+
+/* Glow animation */
+@keyframes glow {
+  from { text-shadow: 0 0 10px gold; }
+  to   { text-shadow: 0 0 40px gold, 0 0 60px red; }
+}
+
+/* Fade out overlay */
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    pointer-events: none;
+  }
+}
